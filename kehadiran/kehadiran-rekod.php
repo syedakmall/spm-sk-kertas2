@@ -23,7 +23,7 @@ if (!empty($_POST['nokp'])) {
 	} else {
 		# Proses Menyemak nokp yang dimasukan telah merekodkan kehadiran atau tidak
 		$arahan_semak       =   "select* from kehadiran where nokp='" . $_POST['nokp'] . "'
-                                 and id_aktiviti ='" . $_GET['id_aktiviti'] . "' limit 1";
+                                and id_aktiviti ='" . $_GET['id_aktiviti'] . "' limit 1";
 
 		$laksana_arahan   =   mysqli_query($condb, $arahan_semak);
 		if (mysqli_num_rows($laksana_arahan) == 1) {
@@ -56,47 +56,63 @@ if (!empty($_GET['id_aktiviti'])) {
 }
 ?>
 
-<h1 align='center'>Laman Rekod Kehadiran Kaunter Urusetia</h1>
-<h3 align='center'>
-	<!-- Boarang carian Aktiviti -->
-	<form action='' method='GET'>
-		Aktiviti <select name='id_aktiviti'>
-			<option selected disabled value>Sila Pilih Aktiviti</option>
 
-			<?php
-			# Proses memaparkan senarai aktiviti dalam bentuk drop down list
-			$arahan_sql_pilih       =   "select* from aktiviti";
-			$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
-			while ($n = mysqli_fetch_array($laksana_arahan_pilih)) {
-				echo "<option value='" . $n['id_aktiviti'] . "'>
-                  " . $n['id_aktiviti'] . " | " . $n['nama_aktiviti'] . "
-                  </option>";
-			}
-			?>
-		</select>
 
-		<input type='submit' value='Cari'>
-	</form>
+<div>
+	<div class="card w-98">
+		<div class="card-body">
+			<h1 align='center' class="font-bold text-4xl">Laman Rekod Kehadiran Kaunter Urusetia</h1>
+			<h3 align='center'>
+				<!-- Boarang carian Aktiviti -->
+				<form action='' method='GET'>
+					<select name='id_aktiviti'>
+						<option selected disabled value>Sila Pilih Aktiviti</option>
 
-	<?php if (!empty($_GET['id_aktiviti'])) { ?>
-		<!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
-		<?= $ma['nama_aktiviti'] ?><br>
-		<?= $ma['tarikh_aktiviti'] ?> | <?= $ma['masa_mula'] ?><br>
-</h3>
+						<?php
+						# Proses memaparkan senarai aktiviti dalam bentuk drop down list
+						$arahan_sql_pilih       =   "select* from aktiviti";
+						$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
+						while ($n = mysqli_fetch_array($laksana_arahan_pilih)) {
+							echo "<option value='" . $n['id_aktiviti'] . "'>
+                " . $n['id_aktiviti'] . " | " . $n['nama_aktiviti'] . "
+                </option>";
+						}
+						?>
+					</select>
 
-<form align='center' action='' method='POST'>
+					<input type='submit' class="btn bg-accent text-base-100" value='Cari'>
+				</form>
 
-	<label>Masukkan / Imbas Nokp / KOD anda di sini</label><br>
-	<input type='text' name='nokp' autofocus autocomplete="off" required onblur="this.focus()"><br>
+				<?php if (!empty($_GET['id_aktiviti'])) { ?>
+					<!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
+					<b>Nama Aktiviti : </b> <?= $ma['nama_aktiviti'] ?><br>
+					<b>Tarikh : </b><?= $ma['tarikh_aktiviti'] ?> <br><b>Masa Mula : </b> <?= $ma['masa_mula'] ?><br>
+			</h3>
+			<div style="margin-bottom:25;  max-width: fit-content;
+						margin-left: auto;
+						margin-right: auto;">
+				<form align='center' action='' margin-left: auto; margin-right: auto;" method='POST'>
 
-	<input type='submit' value='Rekod Kehadiran'>
-</form>
 
-<table width='50%' border='1' align='center'>
+					<input type='text' name='nokp' class="input input-bordered " placeholder="Nombor Kad Pengenalan" style="margin-right:10; margin-top:10;" autofocus autocomplete="off" required onblur="this.focus()">
+
+					<input type='submit' value='Rekod Kehadiran' class="btn btn-m bg-accent text-base-100  ">
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+</div>
+
+<table width='50%' border='1' class="table" align='center'>
 	<caption style="background-color :<?= $warna ?>">
 		<h3><?= $status; ?></h3>
 	</caption>
-	<tr bgcolor='yellow'>
+	<tr class='bg-secondary text-white'>
 		<td>#</td>
 		<td>Nama</td>
 		<td>Nokp</td>
@@ -104,10 +120,10 @@ if (!empty($_GET['id_aktiviti'])) {
 		<td>Masa Hadir</td>
 	</tr>
 	<?php
-		$bil = 0;
+					$bil = 0;
 
-		# Proses untuk memaparkan data kehadiran dalam bentuk jadual
-		$arahan_sql_kehadiran = "select* from ahli,aktiviti, kehadiran, kelas
+					# Proses untuk memaparkan data kehadiran dalam bentuk jadual
+					$arahan_sql_kehadiran = "select* from ahli,aktiviti, kehadiran, kelas
     where 
         ahli.nokp               =   kehadiran.nokp
     and ahli.id_kelas           =   kelas.id_kelas
@@ -115,17 +131,17 @@ if (!empty($_GET['id_aktiviti'])) {
     and kehadiran.id_aktiviti   =   '" . $_GET['id_aktiviti'] . "' 
     order by kehadiran.masa_hadir DESC";
 
-		$laksana_kehadiran = mysqli_query($condb, $arahan_sql_kehadiran);
+					$laksana_kehadiran = mysqli_query($condb, $arahan_sql_kehadiran);
 
-		while ($m  =   mysqli_fetch_array($laksana_kehadiran)) {
-			echo "  <tr>
+					while ($m  =   mysqli_fetch_array($laksana_kehadiran)) {
+						echo "  <tr>
                     <td>" . ++$bil . "</td>
                     <td>" . $m['nama'] . "</td>
                     <td>" . $m['nokp'] . "</td>
                     <td>" . $m['ting'] . " " . $m['nama_kelas'] . "</td>
                     <td>" . $m['masa_hadir'] . "</td>
                 </tr>";
-		}
+					}
 	?>
 </table>
 <?php } ?>

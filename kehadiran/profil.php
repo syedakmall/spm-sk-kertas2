@@ -15,18 +15,18 @@ if (empty($_SESSION['nokp'])) {
 }
 ?>
 
-<table width='100%' bgcolor='#afeeee' border='1'>
+<table width='100%' class="table" border='1'>
 	<tr>
 		<td width='70%' align='center' valign='top'>
-			<h3>Rekod Kehadiran</h3>
+
 
 			<!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
 			<table align='center' width='100%' border='1' id='saiz' bgcolor='white'>
-				<caption>
-					Pengesahan Kendiri hanya boleh dilakukan pada tarikh aktiviti
-					dilaksana sahaja
+				<caption class="font-bold mb-5">
+					*Pengesahan Kendiri hanya boleh dilakukan pada tarikh aktiviti
+					dilaksana sahaja.
 				</caption>
-				<tr align='center' bgcolor='yellow'>
+				<tr align='center' class='bg-secondary text-base-100'>
 					<td>Nama Aktiviti</td>
 					<td>Tarikh | Masa</td>
 					<td>Kehadiran</td>
@@ -42,7 +42,7 @@ if (empty($_SESSION['nokp'])) {
 				# Mengambil data yang ditemui 
 				while ($m = mysqli_fetch_array($laksana)) {
 					# memaparkan senarai nama dalam jadual 
-					echo "<tr > 
+					echo "<tr align='center' > 
                         <td>" . $m['nama_aktiviti'] . "</td> 
                         <td>" . $m['tarikh_aktiviti'] . " | " . $m['masa_mula'] . " </td> 
                         <td align='center'>";
@@ -71,22 +71,30 @@ nokp ='" . $_SESSION['nokp'] . "' and id_aktiviti ='" . $m['id_aktiviti'] . "' "
 
 		</td>
 		<td align='center' valign='top'>
-			<h3>IMBAS CODE UNTUK SAH KEHADIRAN</h3>
-			<p>
-				Nama : <?= $_SESSION['nama'] ?><br>
-				Nokp : <?= $_SESSION['nokp'] ?><br>
-			</p>
-			<?PHP
+			<h3 class="font-bold text-2xl mt-10 mb-5">IMBAS CODE UNTUK SAH KEHADIRAN</h3>
 
-			# mengambil data untuk di jadikan QR code atau bar code
-			$data = $_SESSION['nokp'];
-			$saiz = "200x200";
 
-			# set umpukkan data API untuk memaparkan QR kod 
-			$qr_api = "https://chart.googleapis.com/chart?chs=$saiz&cht=qr&chl=" . $data;
-			echo "<div align='center'><img width='50%' src='" . $qr_api . "'></div>";
-			?>
-			<br>
+
+
+			<div class="card card-compact w-96 bg-base-100 mb-10 shadow-xl">
+				<figure class="mt-10"><?PHP
+
+						# mengambil data untuk di jadikan QR code atau bar code
+						$data = $_SESSION['nokp'];
+						$saiz = "400x400";
+
+						# set umpukkan data API untuk memaparkan QR kod 
+						$qr_api = "https://chart.googleapis.com/chart?chs=$saiz&cht=qr&chl=" . $data;
+						echo "<div align='center'><img width='50%' src='" . $qr_api . "'></div>";
+						?></figure>
+				<div class="card-body">
+					<p class="text-xl">
+						<b>Nama : </b> <?= $_SESSION['nama'] ?><br>
+						<b>No KP : </b> <?= $_SESSION['nokp'] ?><br>
+					</p>
+					
+				</div>
+			</div>
 		</td>
 	</tr>
 </table>

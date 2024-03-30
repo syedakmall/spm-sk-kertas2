@@ -13,53 +13,66 @@ if (empty($_GET)) {
 }
 ?>
 
-<h3>kemaskini ahli Baru</h3>
-<form action='ahli-kemaskini-proses.php?nokp_lama=<?= $_GET['nokp'] ?>' method='POST'>
-	nama
-	<input type='text' name='nama' value='<?= $_GET['nama'] ?>' required><br>
 
-	nokp
-	<input type='text' name='nokp' value='<?= $_GET['nokp'] ?>' required><br>
 
-	katalaluan
-	<input type='text' name='katalaluan' value='<?= $_GET['katalaluan'] ?>' required><br>
+<link rel="stylesheet" href="login-borang.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<div>
 
-	Tahap
-	<select name='tahap'><br>
-		<option value='<?= $_GET['tahap'] ?>'> <?= $_GET['tahap'] ?> </option>
-		<?php
-		# Proses memaparkan senarai tahap dalam bentuk drop down list
-		$arahan_sql_tahap       =   "select tahap from ahli group by tahap order by tahap";
-		$laksana_arahan_tahap   =   mysqli_query($condb, $arahan_sql_tahap);
-		while ($n = mysqli_fetch_array($laksana_arahan_tahap)) {
-			if ($n['tahap'] != $_GET['tahap']) {
-				echo "<option value='" . $n['tahap'] . "'>
+	<body>
+		<div class="container">
+			<input type="checkbox" id="check">
+			<div class="login form">
+				<header>Kemaskini Ahli</header>
+				<form action='ahli-kemaskini-proses.php?nokp_lama=<?= $_GET['nokp'] ?>' method='POST'>
+
+					<input type='text' name='nama' value='<?= $_GET['nama'] ?>' placeholder="Nama" required><br>
+					<input type='text' name='nokp' value='<?= $_GET['nokp'] ?>' placeholder="Nombor Kad Pengenalan" required><br>
+
+
+					<input type='text' name='katalaluan' value='<?= $_GET['katalaluan'] ?>' placeholder="Kata Lluan" required><br>
+
+
+				Tahap : <select name='tahap'><br>
+						<option value='<?= $_GET['tahap'] ?>'> <?= $_GET['tahap'] ?> </option>
+						<?php
+						# Proses memaparkan senarai tahap dalam bentuk drop down list
+						$arahan_sql_tahap       =   "select tahap from ahli group by tahap order by tahap";
+						$laksana_arahan_tahap   =   mysqli_query($condb, $arahan_sql_tahap);
+						while ($n = mysqli_fetch_array($laksana_arahan_tahap)) {
+							if ($n['tahap'] != $_GET['tahap']) {
+								echo "<option value='" . $n['tahap'] . "'>
                 " . $n['tahap'] . "
                 </option>";
-			}
-		}
-		?>
-	</select> <br>
-	Tingkatan
-	<select name='id_kelas'><br>
-		<option value='<?= $_GET['id_kelas'] ?>'>
-			<?= $_GET['ting'] . " " . $_GET['nama_kelas'] ?>
-		</option>
-		<?php
-		# Proses memaparkan senarai kelas dalam bentuk drop down list
-		$arahan_sql_pilih       =   "select* from kelas";
-		$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
-		while ($m = mysqli_fetch_array($laksana_arahan_pilih)) {
-			if ($m['id_kelas'] != $_GET['id_kelas']) {
-				echo "<option value='" . $m['id_kelas'] . "'>
+							}
+						}
+						?>
+					</select> <br>
+
+
+					Kelas : <select name='id_kelas'><br>
+						<option value='<?= $_GET['id_kelas'] ?>'>
+							<?= $_GET['ting'] . " " . $_GET['nama_kelas'] ?>
+						</option>
+						<?php
+						# Proses memaparkan senarai kelas dalam bentuk drop down list
+						$arahan_sql_pilih       =   "select* from kelas";
+						$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
+						while ($m = mysqli_fetch_array($laksana_arahan_pilih)) {
+							if ($m['id_kelas'] != $_GET['id_kelas']) {
+								echo "<option value='" . $m['id_kelas'] . "'>
                 " . $m['ting'] . " " . $m['nama_kelas'] . "
                 </option>";
-			}
-		}
-		?>
-	</select> <br>
+							}
+						}
+						?>
+					</select> <br><br>
 
-	<input type='submit' value='Kemaskini'>
+					<input type='submit' class="btn btn-secondary" value='Kemaskini'>
+				</form>
 
-</form>
-<?php include('footer.php'); ?>
+			</div>
+
+		</div>
+	</body>
+</div>

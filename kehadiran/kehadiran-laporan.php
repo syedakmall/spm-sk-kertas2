@@ -8,10 +8,13 @@ include('connection.php');
 include('kawalan-admin.php');
 
 ?>
-<h3>Laporan Kehadiran aktiviti</h3>
+
 <!-- Boarang carian Aktiviti -->
-<form action='' method='GET'>
-	Aktiviti <select name='id_aktiviti'>
+<form action='' method='GET' style="  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;">
+  <h1 class="font-bold text-4xl mt-10 mb-3">Laporan Kehadiran Aktiviti</h1>
+	<select name='id_aktiviti'>
 		<option selected disabled value>Sila Pilih Aktiviti</option>
 
 		<?php
@@ -25,7 +28,7 @@ include('kawalan-admin.php');
 		}
 		?>
 	</select>
-	<input type='submit' value='Cari'>
+	<input type='submit' class="btn text-base-100 btn-accent ml-3" value='Cari'>
 </form>
 
 <?php
@@ -50,21 +53,24 @@ where id_aktiviti = '" . $ma['id_aktiviti'] . "' ) AS bil_hadir,
 ?>
 
 	<!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
-	<h3>
-		<?= $ma['nama_aktiviti'] ?><br>
-		<?= $ma['tarikh_aktiviti'] ?> | <?= $ma['masa_mula'] ?><br>
-		Kehadiran : <?= $da['bil_hadir'] . " / " . $da['bil_ahli'] ?> <br>
-		Peratus : <?php echo number_format(($da['bil_hadir'] / $da['bil_ahli'] * 100), 2); ?> %
+	<h3 style="margin-top:10;max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;">
+		<b>Masa : </b><?= $ma['nama_aktiviti'] ?><br>
+		<b>Tarikh : </b><?= $ma['tarikh_aktiviti'] ?> <br> <b>Masa : </b> <?= $ma['masa_mula'] ?><br>
+		<b>Kehadiran : </b> <?= $da['bil_hadir'] . " / " . $da['bil_ahli'] ?> <br>
+		<b>Peratus : </b> <?php echo number_format(($da['bil_hadir'] / $da['bil_ahli'] * 100), 2); ?> %
 	</h3>
 
-	<table align='center' width='100%' border='1' id='saiz'>
-		<tr bgcolor='cyan'>
+	<table align='center' width='100%'class="table" border='1' id='saiz' style="margin-top:10;">
+		<tr>
 			<td colspan='3'>
 
-				<form action='kehadiran-laporan.php?id_aktiviti=<?= $id_aktiviti; ?>' method='POST' style="margin:0; padding:0;">
+				<form action='kehadiran-laporan.php?id_aktiviti=<?= $id_aktiviti; ?>' method='POST' style="margin-bottom:20; padding:0; ">
 
-					<input type='text' name='nama' placeholder='Carian Nama Ahli'>
-					<input type='submit' value='Cari'>
+					<input type='text' name='nama' class="input input-bordered" placeholder='🔎 Carian Nama Ahli' style="margin-left:10;">
+					
+					<input type='submit' class="btn btn-sm size-20" style="margin-left:20;" value='Cari'>
 				</form>
 
 			</td>
@@ -72,10 +78,10 @@ where id_aktiviti = '" . $ma['id_aktiviti'] . "' ) AS bil_hadir,
 				<?php include('butang-saiz.php'); ?>
 			</td>
 		</tr>
-		<tr bgcolor='yellow'>
+		<tr class="bg-secondary text-base-100">
 			<td>Bil</td>
 			<td>Nama</td>
-			<td>NoKP</td>
+			<td>Kad Pengenalan</td>
 			<td>Kelas</td>
 			<td>Kehadiran</td>
 		</tr>

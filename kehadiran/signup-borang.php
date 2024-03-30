@@ -8,27 +8,46 @@ include('connection.php');
 ?>
 
 <!-- Tajuk antaramuka-->
-<h3> Pendaftaran ahli Baru </h3>
 
 <!-- Borang Pendaftaran ahli Baru-->
-<form action='signup-proses.php' method='POST'>
 
-	Nama ahli <input type='text' name='nama' required> <br>
-	Nokp ahli <input type='text' name='nokp' required> <br>
-	Tingkatan <select name='id_kelas'><br>
-		<option selected disabled value>Sila Pilih Kelas</option>
-		<?php
-		# Proses memaparkan senarai kelas dalam bentuk drop down list
-		$arahan_sql_pilih       =   "select* from kelas";
-		$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
-		while ($m = mysqli_fetch_array($laksana_arahan_pilih)) {
-			echo "<option value='" . $m['id_kelas'] . "'>
-                     " . $m['ting'] . " " . $m['nama_kelas'] . "
-                     </option>";
-		}
-		?>
-	</select> <br>
-	Katalaluan <input type='password' name='katalaluan' required> <br>
-	<input type='submit' value='Daftar'>
-</form>
-<?php include('footer.php'); ?>
+
+<link rel="stylesheet" href="login-borang.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<div>
+
+	<body>
+		<div class="container">
+			<input type="checkbox" id="check">
+			<div class="login form">
+				<header>Login</header>
+				<form action="signup-proses.php" method="POST">
+					<input type="text" name="nama" placeholder="Nama Ahli">
+					<input type="text" name="nokp" placeholder="Nombor Kad Pengenalan">
+
+
+					<input type="password" name="katalaluan" placeholder="Kata Laluan">
+					Tingkatan <select name='id_kelas'><br>
+						<option selected disabled value>Sila Pilih Kelas</option>
+						<?php
+						# Proses memaparkan senarai kelas dalam bentuk drop down list
+						$arahan_sql_pilih       =   "select* from kelas";
+						$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
+						while ($m = mysqli_fetch_array($laksana_arahan_pilih)) {
+							echo "<option value='" . $m['id_kelas'] . "'>
+" . $m['ting'] . " " . $m['nama_kelas'] . "</option>";
+						}
+						?>
+					</select> <br>
+					<input type="submit" class="btn btn-secondary mt-5" value="Daftar" required>
+				</form>
+				<div class="signup">
+					<span class="signup">Mempunyai Akaun Ahli?
+						<a href="login-borang.php">Login</a>
+					</span>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</div>

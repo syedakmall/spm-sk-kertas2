@@ -14,19 +14,36 @@ $n  =   mysqli_fetch_array($laksana_aktiviti);
 
 ?>
 
-<h3>Pengesahan Kehadiran Ahli</h3>
 
-Nama Aktiviti : <?= $n['nama_aktiviti'] ?> <br>
-Tarikh | Masa : <?= $n['tarikh_aktiviti'] . " | " . $n['masa_mula'] ?><br>
+
+<div style="max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;">
+	<div class="card w-96 bg-secondary text-white">
+		<div class="card-body">
+			<h2 class="card-title">Pengesahan Kehadiran Ahli</h2>
+			Nama Aktiviti : <?= $n['nama_aktiviti'] ?> <br>
+			Tarikh : <?= $n['tarikh_aktiviti'] ?><br>
+			Masa : <?= $n['masa_mula'] ?><br>
+
+		</div>
+	</div>
+</div>
+
+
+
 <br><br>
 
-<?php include('butang-saiz.php'); ?>
+<div style="max-width: fit-content;
+  margin-left: auto;"><?php include('butang-saiz.php'); ?></div>
+
+
 <form action='kehadiran-proses.php?id_aktiviti=<?= $_GET['id_aktiviti'] ?>' method='POST'>
-	<table border='1' id='saiz' width='100%'>
-		<tr>
+	<table border='1' class="table" id='saiz' width='100%'>
+		<tr class="bg-secondary text-white">
 			<td>Bil</td>
 			<td>Nama</td>
-			<td>Nokp</td>
+			<td>Nombor Kad Pengenalan</td>
 			<td>Kelas</td>
 			<td>Kehadiran</td>
 		</tr>
@@ -73,7 +90,7 @@ ORDER BY ahli.nama";
 		?>
 		<tr>
 			<td colspan='4'></td>
-			<td><input type='submit' value='Simpan'></td>
+			<td><button class="btn btn-success "><input type='submit' value='Simpan'></button></td>
 		</tr>
 	</table>
 </form>

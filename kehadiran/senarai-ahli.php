@@ -7,29 +7,37 @@ include('header.php');
 include('connection.php');
 include('kawalan-admin.php');
 
-?>
-<!-- Header bagi jadual untuk memaparkan senarai ahli -->
-<h3 align='center'>Senarai ahli</h3>
 
-<table align='center' width='100%' border='1' id='saiz'>
-	<tr bgcolor='cyan'>
+?>
+
+
+</html>
+<!-- Header bagi jadual untuk memaparkan senarai ahli -->
+<h3 align='center' class="font-bold text-4xl mb-5 mt-10">Senarai Ahli</h3>
+
+<table align='center' width='100%' border='1' class="table" style="margin-right: 2;" id='saiz'>
+	<tr class='bg-base-100'>
 		<td colspan='3'>
 			<form action='' method='POST' style="margin:0; padding:0;">
-				<input type='text' name='nama' placeholder='Carian Nama Ahli'>
-				<input type='submit' value='Cari'>
+
+
+				<input type='text' name='nama' class="input input-bordered size-60 mr-5" placeholder='🔎 Carian Nama Ahli'>
+
+				<button class="btn btn-sm"><input type='submit' value='Cari'></button>
+
 			</form>
 		</td>
 		<td colspan='3' align='right'>
-			| <a href='upload.php'>Muat Naik ahli</a> |
+			| <a href='upload.php'><button class="btn btn-sm">Muat Naik Ahli</button></a> |
 			<?php include('butang-saiz.php'); ?>
 		</td>
 	</tr>
-	<tr bgcolor='yellow'>
+	<tr class='bg-secondary text-white'>
 		<td width='35%'>Nama</td>
-		<td width='15%'>Nokp</td>
+		<td width='15%'>Kad Pengenalan</td>
 		<td width='10%'>Kelas</td>
-		<td width='10%'>Katalaluan</td>
-		<td width='10%'>tahap</td>
+		<td width='10%'>Kata Laluan</td>
+		<td width='10%'>Tahap</td>
 		<td width='20%'>Tindakan</td>
 	</tr>
 
@@ -63,7 +71,7 @@ $tambahan ";
 		);
 
 		# memaparkan senarai nama dalam jadual 
-		echo "<tr> 
+		echo "<tr class='hover'> 
         <td>" . $m['nama'] . "</td> 
         <td>" . $m['nokp'] . "</td> 
         <td>" . $m['ting'] . " " . $m['nama_kelas'] . "</td> 
@@ -72,12 +80,14 @@ $tambahan ";
 
 		# memaparkan navigasi untuk kemaskini dan hapus data ahli
 		echo "<td>
-        |<a href='ahli-kemaskini-borang.php?" . http_build_query($data_get) . "'>
-         Kemaskini</a>
 
-        |<a href='ahli-padam-proses.php?nokp=" . $m['nokp'] . "' 
+		<a href='ahli-kemaskini-borang.php?" . http_build_query($data_get) . "'>
+		<button class='btn btn-info'>Kemaskini</button></a>
+
+
+		<a href='ahli-padam-proses.php?nokp=" . $m['nokp'] . "' 
         onClick=\"return confirm('Anda pasti anda ingin memadam data ini.')\">
-        Hapus</a>|
+        <button class='btn btn-error'>Hapus</button></a>
 
         </td>
         </tr>";
