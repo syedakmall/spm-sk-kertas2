@@ -14,82 +14,89 @@ include('kawalan-admin.php');
 
 
 
-<link rel="stylesheet" href="login-borang.css">
+<link rel="stylesheet" href="./styling/login-borang.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<body class="bg-base-200 h-full">
 <div>
 
-	<body>
-		<div class="container">
-			<input type="checkbox" id="check">
-			<div class="login form">
-				<header>Muat Naik Data ahli (*.txt)</header>
-				<form action='' method='POST' enctype='multipart/form-data'>
+<body >
+	<div class="container">
+		<input type="checkbox" id="check">
+		<div class="login form">
+			<header>Muat Naik Data ahli (*.txt)</header>
+			<form action='' method='POST' enctype='multipart/form-data'>
 
 
-					<div>
-					<input type="file" class="file-input file-input-bordered file-input-secondary  w-full max-w-xs "  name="data_ahli" />
-					</div>
+				<div>
+				<input type="file" class="file-input file-input-bordered file-input-secondary  w-full max-w-xs "  name="data_ahli" />
+				</div>
 
-					<button type='submit' class="btn btn-success" name='btn-upload'>Muat Naik</button>
+				<button type='submit' class="btn btn-success" name='btn-upload'>Muat Naik</button>
 
 
-				</form>
-
-			</div>
+			</form>
 
 		</div>
-	</body>
 
-	<?PHP
-	# data validation : menyemak kewujudan data dari borang
-	if (isset($_POST['btn-upload'])) {
-		# memanggil fail connection
-		include('connection.php');
+	</div>
+</body>
 
-		# mengambil nama sementara fail
-		$namafailsementara = $_FILES["data_ahli"]["tmp_name"];
+<?PHP
+# data validation : menyemak kewujudan data dari borang
+if (isset($_POST['btn-upload'])) {
+	# memanggil fail connection
+	include('connection.php');
 
-		# mengambil nama fail
-		$namafail = $_FILES['data_ahli']['name'];
+	# mengambil nama sementara fail
+	$namafailsementara = $_FILES["data_ahli"]["tmp_name"];
 
-		# mengambil jenis fail
-		$jenisfail = pathinfo($namafail, PATHINFO_EXTENSION);
+	# mengambil nama fail
+	$namafail = $_FILES['data_ahli']['name'];
 
-		# menguji jenis fail dan sail fail 
-		if ($_FILES["data_ahli"]["size"] > 0 and $jenisfail == "txt") {
-			# membuka fail yang diambil
-			$fail_data_ahli = fopen($namafailsementara, "r");
+	# mengambil jenis fail
+	$jenisfail = pathinfo($namafail, PATHINFO_EXTENSION);
 
-			# mendapatkan data dari fail baris demi baris
-			while (!feof($fail_data_ahli)) {
-				# mengambil data sebaris sahaja bg setiap pusingan 
-				$ambilbarisdata = fgets($fail_data_ahli);
+	# menguji jenis fail dan sail fail 
+	if ($_FILES["data_ahli"]["size"] > 0 and $jenisfail == "txt") {
+		# membuka fail yang diambil
+		$fail_data_ahli = fopen($namafailsementara, "r");
 
-				# memecahkan baris data mengikut tanda pipe
-				$pecahkanbaris = explode("|", $ambilbarisdata);
+		# mendapatkan data dari fail baris demi baris
+		while (!feof($fail_data_ahli)) {
+			# mengambil data sebaris sahaja bg setiap pusingan 
+			$ambilbarisdata = fgets($fail_data_ahli);
 
-				# selepas pecahan tadi akan diumpukan kepada 5
-				list($nokp, $nama, $id_kelas, $katalaluan, $tahap) = $pecahkanbaris;
+			# memecahkan baris data mengikut tanda pipe
+			$pecahkanbaris = explode("|", $ambilbarisdata);
 
-				# arahan SQL untuk menyimpan data
-				$arahan_sql_simpan = "insert into ahli
-            (nokp,nama,id_kelas,katalaluan,tahap) values
-            ('$nokp','$nama','$id_kelas','$katalaluan','$tahap')";
+			# selepas pecahan tadi akan diumpukan kepada 5
+			list($nokp, $nama, $id_kelas, $katalaluan, $tahap) = $pecahkanbaris;
 
-				# memasukkan data kedalam jadual ahli 
-				$laksana_arahan_simpan = mysqli_query($condb, $arahan_sql_simpan);
-				echo "<script>alert('import fail Data Selesai');
-            window.location.href='senarai-ahli.php';
-            </script>";
-			}
-			# menutup fail txt yang dibuka
-			fclose($fail_data_ahli);
-		} else {
-			# jika fail yang dimuat naik kosong atau tersalah format.
-			echo "<script>alert('hanya fail berformat txt sahaja dibenarkan');</script>";
+			# arahan SQL untuk menyimpan data
+			$arahan_sql_simpan = "insert into ahli
+		(nokp,nama,id_kelas,katalaluan,tahap) values
+		('$nokp','$nama','$id_kelas','$katalaluan','$tahap')";
+
+			# memasukkan data kedalam jadual ahli 
+			$laksana_arahan_simpan = mysqli_query($condb, $arahan_sql_simpan);
+			echo "<script>alert('import fail Data Selesai');
+		window.location.href='senarai-ahli.php';
+		</script>";
 		}
+		# menutup fail txt yang dibuka
+		fclose($fail_data_ahli);
+	} else {
+		# jika fail yang dimuat naik kosong atau tersalah format.
+		echo "<script>alert('hanya fail berformat txt sahaja dibenarkan');</script>";
 	}
+}
 
 
-	?>
+?>
 </div>
+</body>
+
+<?php
+
+include('footer.php');
+?>

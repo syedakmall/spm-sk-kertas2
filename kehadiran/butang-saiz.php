@@ -20,10 +20,10 @@
 
 <!-- Kod untuk butang mengubah saiz tulisan -->
 Tulisan : 
-<button class="btn btn-sm"><input name='reSize1' type='button' value='Reset' onclick="ubahsaiz(2)" /></button>
+<button class="btn bg-base-300 btn-sm"><input name='reSize1' type='button' value='Reset' onclick="ubahsaiz(2)" /></button>
 
-<button class="btn size-5 btn-sm"><input name='reSize' type='button' value='&nbsp;+&nbsp;' onclick="ubahsaiz(1)" /></button>
+<button class="btn size-5 bg-base-300 btn-sm"><input name='reSize' type='button' value='&nbsp;+&nbsp;' onclick="ubahsaiz(1)" /></button>
 
-<button class="btn size-5 btn-sm"><input name='reSize2' type='button' value='&nbsp;-&nbsp;' onclick="ubahsaiz(-1)" /></button>
+<button class="btn size-5 bg-base-300 btn-sm"><input name='reSize2' type='button' value='&nbsp;-&nbsp;' onclick="ubahsaiz(-1)" /></button>
 |
-<button class="btn size-15 btn-sm" onclick="window.print()">Cetak 🖨️</button>
+<button class="btn size-15 bg-base-300 btn-sm" onclick="window.print()">Cetak 🖨️</button>

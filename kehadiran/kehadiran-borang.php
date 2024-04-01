@@ -15,10 +15,11 @@ $n  =   mysqli_fetch_array($laksana_aktiviti);
 ?>
 
 
-
+<body class="bg-base-200 h-full">
+	
 <div style="max-width: fit-content;
   margin-left: auto;
-  margin-right: auto;">
+  margin-right: auto; margin-top:30;">
 	<div class="card w-96 bg-secondary text-white">
 		<div class="card-body">
 			<h2 class="card-title">Pengesahan Kehadiran Ahli</h2>
@@ -35,7 +36,7 @@ $n  =   mysqli_fetch_array($laksana_aktiviti);
 <br><br>
 
 <div style="max-width: fit-content;
-  margin-left: auto;"><?php include('butang-saiz.php'); ?></div>
+  margin-left: auto;margin-bottom: 10;padding-right:5;"><?php include('butang-saiz.php'); ?></div>
 
 
 <form action='kehadiran-proses.php?id_aktiviti=<?= $_GET['id_aktiviti'] ?>' method='POST'>
@@ -82,7 +83,7 @@ ORDER BY ahli.nama";
 						$tanda = "";
 					?>
 
-					<input <?= $tanda ?> type='checkbox' name='kehadiran[]' value='<?= $m['nokp'] ?> ' style='width:30px; height:30px;'>
+					<input <?= $tanda ?> type='checkbox' name='kehadiran[]' class="checkbox checkbox-primary" value='<?= $m['nokp'] ?> ' style='width:30px; height:30px;'>
 				</td>
 			</tr>
 		<?PHP
@@ -94,4 +95,5 @@ ORDER BY ahli.nama";
 		</tr>
 	</table>
 </form>
+</body>
 <?php include('footer.php'); ?>

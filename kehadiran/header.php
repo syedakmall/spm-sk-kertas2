@@ -1,23 +1,23 @@
 <!-- Tajuk sistem. Akan dipaparkan disebelah atas -->
 
 
-<link rel="stylesheet" href="header.css" type="text/css">
+<link rel="stylesheet" href="./styling/header.css" type="text/css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.9.0/dist/full.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
 
-<html data-theme="winter">
-
+<html data-theme="fantasy">
 <?PHP if (!empty($_SESSION['tahap']) and $_SESSION['tahap'] == "ADMIN") { ?>
 
 
 
-    <div class="navbar bg-primary text-white">
+    <div class="navbar bg-primary text-base-100">
         <div class="navbar-start">
 
-            <a class="btn btn-ghost text-xl  font-bold">Kelab Robotik 🤖</a>
+
+            <a class="btn btn-ghost text-xl  font-bold">Sistem Kehadiran Kelab Robotik 🤖</a>
         </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">

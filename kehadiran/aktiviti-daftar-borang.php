@@ -10,8 +10,10 @@ include('kawalan-admin.php');
 
 <!-- borang untuk menerima data dari pengguna -->
 
-<link rel="stylesheet" href="login-borang.css">
+<link rel="stylesheet" href="./styling/login-borang.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<body class="bg-base-200 h-full">
+    
 <div>
 
     <body>
@@ -34,3 +36,9 @@ include('kawalan-admin.php');
     </body>
 </div>
 
+</body>
+
+<?php
+
+include('footer.php');
+?>

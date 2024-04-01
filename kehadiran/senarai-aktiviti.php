@@ -10,20 +10,21 @@ include('kawalan-admin.php');
 ?>
 <h3 align='center' class="text-4xl font-bold mb-5 mt-10">Senarai Aktiviti</h3>
 
-
+<body class="bg-base-200 h-full">
+	
 <!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
 <table align='center' class="table" width='100%' border='1' id='saiz'>
-	<tr class='bg-base-100 '>
+	<tr class='bg-base-200 '>
 		<td>
 			<form action='' method='POST' style="margin:0; padding:0;">
 
-				<input type='text' name='nama_aktiviti' class="input input-bordered size-60 mr-5" placeholder='🔎 Carian Aktiviti'>
+				<input type='text' name='nama_aktiviti' class="input input-bordered bg-base-200 size-60 mr-3" placeholder='🔎 Carian Aktiviti'>
 
-				<button class="btn btn-sm"><input type='submit' value='Cari'></button>
+				<button class="btn btn-sm bg-base-300"><input type='submit' value='Cari'></button>
 			</form>
 		</td>
 		<td colspan='2' align='right'>
-			| <a href='aktiviti-daftar-borang.php'><button class="btn btn-sm">Daftar Aktiviti Baru</button></a> |
+			| <a href='aktiviti-daftar-borang.php'><button class="btn btn-sm bg-base-300">Daftar Aktiviti Baru</button></a> |
 			<!-- Memanggil fail butang-saiz bagi membolehkan pengguna mengubah saiz tulisan -->
 			<?php include('butang-saiz.php'); ?>
 
@@ -80,6 +81,7 @@ include('kawalan-admin.php');
 
 	?>
 </table>
+</body>
 
 
 <?php include('footer.php'); ?>

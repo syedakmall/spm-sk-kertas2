@@ -15,7 +15,7 @@ if (empty($_GET)) {
 
 
 
-<link rel="stylesheet" href="login-borang.css">
+<link rel="stylesheet" href="./styling/login-borang.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 <div>
 
@@ -33,7 +33,8 @@ if (empty($_GET)) {
 					<input type='text' name='katalaluan' value='<?= $_GET['katalaluan'] ?>' placeholder="Kata Lluan" required><br>
 
 
-				Tahap : <select name='tahap'><br>
+					Tahap : <select class="mt-1 pr-2 bg-base-100 border border-gray-300 text-neutral text-sm
+					rounded-lg h-10 pl-2" name='tahap'><br>
 						<option value='<?= $_GET['tahap'] ?>'> <?= $_GET['tahap'] ?> </option>
 						<?php
 						# Proses memaparkan senarai tahap dalam bentuk drop down list
@@ -50,7 +51,8 @@ if (empty($_GET)) {
 					</select> <br>
 
 
-					Kelas : <select name='id_kelas'><br>
+					Kelas : <select class="mt-2 bg-base-100 border border-gray-300 text-neutral text-sm
+					rounded-lg h-10 pl-2" name='id_kelas'><br>
 						<option value='<?= $_GET['id_kelas'] ?>'>
 							<?= $_GET['ting'] . " " . $_GET['nama_kelas'] ?>
 						</option>
@@ -76,3 +78,4 @@ if (empty($_GET)) {
 		</div>
 	</body>
 </div>
+<?PHP include('footer.php'); ?>

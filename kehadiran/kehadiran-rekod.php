@@ -56,74 +56,80 @@ if (!empty($_GET['id_aktiviti'])) {
 }
 ?>
 
+<body class="bg-base-200 h-full">
 
 
-<div>
-	<div class="card w-98">
-		<div class="card-body">
-			<h1 align='center' class="font-bold text-4xl">Laman Rekod Kehadiran Kaunter Urusetia</h1>
-			<h3 align='center'>
-				<!-- Boarang carian Aktiviti -->
-				<form action='' method='GET'>
-					<select name='id_aktiviti'>
-						<option selected disabled value>Sila Pilih Aktiviti</option>
+	<div>
+		<div class="card w-98">
+			<div class="card-body">
+				<h1 align='center' class="font-bold text-4xl mt-5 mb-2">Laman Rekod Kehadiran Kaunter Urusetia</h1>
+				<h3 align='center'>
+					<!-- Boarang carian Aktiviti -->
+					<form action='' method='GET'>
+						<select class="mt-1 mb-5 bg-base-200 border border-gray-300 text-neutral text-sm
+					rounded-lg h-10 pl-2" name='id_aktiviti'>
+							<option selected disabled value>Sila Pilih Aktiviti</option>
 
-						<?php
-						# Proses memaparkan senarai aktiviti dalam bentuk drop down list
-						$arahan_sql_pilih       =   "select* from aktiviti";
-						$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
-						while ($n = mysqli_fetch_array($laksana_arahan_pilih)) {
-							echo "<option value='" . $n['id_aktiviti'] . "'>
+							<?php
+							# Proses memaparkan senarai aktiviti dalam bentuk drop down list
+							$arahan_sql_pilih       =   "select* from aktiviti";
+							$laksana_arahan_pilih   =   mysqli_query($condb, $arahan_sql_pilih);
+							while ($n = mysqli_fetch_array($laksana_arahan_pilih)) {
+								echo "<option value='" . $n['id_aktiviti'] . "'>
                 " . $n['id_aktiviti'] . " | " . $n['nama_aktiviti'] . "
                 </option>";
-						}
-						?>
-					</select>
+							}
+							?>
+						</select>
 
-					<input type='submit' class="btn bg-accent text-base-100" value='Cari'>
-				</form>
+						<input type='submit' class="btn bg-accent text-base-100 ml-3" value='Cari'>
+					</form>
 
-				<?php if (!empty($_GET['id_aktiviti'])) { ?>
-					<!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
-					<b>Nama Aktiviti : </b> <?= $ma['nama_aktiviti'] ?><br>
-					<b>Tarikh : </b><?= $ma['tarikh_aktiviti'] ?> <br><b>Masa Mula : </b> <?= $ma['masa_mula'] ?><br>
-			</h3>
-			<div style="margin-bottom:25;  max-width: fit-content;
+					<?php if (!empty($_GET['id_aktiviti'])) { ?>
+						<!-- Header bagi jadual untuk memaparkan senarai aktiviti -->
+						<b>Nama : </b> <?= $ma['nama_aktiviti'] ?><br>
+						<b>Tarikh : </b><?= $ma['tarikh_aktiviti'] ?> <br><b>Masa Mula : </b> <?= $ma['masa_mula'] ?><br>
+				</h3>
+				<div style="margin-bottom:20;  max-width: fit-content;
 						margin-left: auto;
 						margin-right: auto;">
-				<form align='center' action='' margin-left: auto; margin-right: auto;" method='POST'>
+					<form align='center' action='' margin-left: auto; margin-right: auto; method='POST'>
 
 
-					<input type='text' name='nokp' class="input input-bordered " placeholder="Nombor Kad Pengenalan" style="margin-right:10; margin-top:10;" autofocus autocomplete="off" required onblur="this.focus()">
+						<input type='text' name='nokp' class="input input-bordered bg-base-200" placeholder="Nombor Kad Pengenalan" style="margin-right:10; margin-top:10;" autofocus autocomplete="off" required onblur="this.focus()">
 
-					<input type='submit' value='Rekod Kehadiran' class="btn btn-m bg-accent text-base-100  ">
-				</form>
+						<input type='submit' value='Rekod Kehadiran' class="btn btn-m bg-accent text-base-100  ">
+					</form>
+
+				</div>
 			</div>
 		</div>
+
+
+
+
+
+
+
 	</div>
 
+	<table width='50%' border='1' class="table bg-base-200 mb-20" align='center'>
+		<caption style="background-color :<?= $warna ?>">
+			<h3><?= $status; ?></h3>
+		</caption>
 
+		<tr class='bg-secondary text-white'>
+			<td>#</td>
+			<td>Nama</td>
+			<td>Kad</td>
+			<td>Kelas</td>
+			<td>Masa Hadir</td>
+		</tr>
+		<?php
+						$bil = 0;
 
-
-
-</div>
-
-<table width='50%' border='1' class="table" align='center'>
-	<caption style="background-color :<?= $warna ?>">
-		<h3><?= $status; ?></h3>
-	</caption>
-	<tr class='bg-secondary text-white'>
-		<td>#</td>
-		<td>Nama</td>
-		<td>Nokp</td>
-		<td>Kelas</td>
-		<td>Masa Hadir</td>
-	</tr>
-	<?php
-					$bil = 0;
-
-					# Proses untuk memaparkan data kehadiran dalam bentuk jadual
-					$arahan_sql_kehadiran = "select* from ahli,aktiviti, kehadiran, kelas
+						# Proses untuk memaparkan data kehadiran dalam bentuk jadual
+						$arahan_sql_kehadiran = "select* from ahli,aktiviti, kehadiran, kelas
     where 
         ahli.nokp               =   kehadiran.nokp
     and ahli.id_kelas           =   kelas.id_kelas
@@ -131,18 +137,21 @@ if (!empty($_GET['id_aktiviti'])) {
     and kehadiran.id_aktiviti   =   '" . $_GET['id_aktiviti'] . "' 
     order by kehadiran.masa_hadir DESC";
 
-					$laksana_kehadiran = mysqli_query($condb, $arahan_sql_kehadiran);
+						$laksana_kehadiran = mysqli_query($condb, $arahan_sql_kehadiran);
 
-					while ($m  =   mysqli_fetch_array($laksana_kehadiran)) {
-						echo "  <tr>
+						while ($m  =   mysqli_fetch_array($laksana_kehadiran)) {
+							echo "  <tr>
                     <td>" . ++$bil . "</td>
                     <td>" . $m['nama'] . "</td>
                     <td>" . $m['nokp'] . "</td>
                     <td>" . $m['ting'] . " " . $m['nama_kelas'] . "</td>
                     <td>" . $m['masa_hadir'] . "</td>
                 </tr>";
-					}
-	?>
-</table>
+						}
+		?>
+	</table>
+	
 <?php } ?>
-<?PHP include('footer.php'); ?>
+</body>
+
+<?php include('footer.php'); ?>

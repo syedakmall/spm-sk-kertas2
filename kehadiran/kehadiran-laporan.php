@@ -9,12 +9,16 @@ include('kawalan-admin.php');
 
 ?>
 
+<body class="bg-base-200 h-full">
+	
 <!-- Boarang carian Aktiviti -->
-<form action='' method='GET' style="  max-width: fit-content;
-  margin-left: auto;
-  margin-right: auto;">
-  <h1 class="font-bold text-4xl mt-10 mb-3">Laporan Kehadiran Aktiviti</h1>
-	<select name='id_aktiviti'>
+<form action='' method='GET'  style="max-width: fit-content;
+	margin-left: auto;
+	margin-right: auto;">
+	<h1 align="center" class="font-bold text-4xl mt-10 mb-3">Laporan Kehadiran Aktiviti</h1>
+	<div align="center">
+	<select align="center" class="mt-1 bg-base-200 border border-gray-300 text-neutral text-sm
+					rounded-lg h-10 pl-2" name='id_aktiviti'>
 		<option selected disabled value>Sila Pilih Aktiviti</option>
 
 		<?php
@@ -28,7 +32,8 @@ include('kawalan-admin.php');
 		}
 		?>
 	</select>
-	<input type='submit' class="btn text-base-100 btn-accent ml-3" value='Cari'>
+	<input type='submit' class="btn text-base-100  btn-accent ml-3" value='Cari'>
+	</div>
 </form>
 
 <?php
@@ -56,21 +61,21 @@ where id_aktiviti = '" . $ma['id_aktiviti'] . "' ) AS bil_hadir,
 	<h3 style="margin-top:10;max-width: fit-content;
   margin-left: auto;
   margin-right: auto;">
-		<b>Masa : </b><?= $ma['nama_aktiviti'] ?><br>
-		<b>Tarikh : </b><?= $ma['tarikh_aktiviti'] ?> <br> <b>Masa : </b> <?= $ma['masa_mula'] ?><br>
+		<b>Nama : </b><?= $ma['nama_aktiviti'] ?><br>
+		<b>Tarikh : </b><?= $ma['tarikh_aktiviti'] ?> <br> <b>Masa Mula : </b> <?= $ma['masa_mula'] ?><br>
 		<b>Kehadiran : </b> <?= $da['bil_hadir'] . " / " . $da['bil_ahli'] ?> <br>
 		<b>Peratus : </b> <?php echo number_format(($da['bil_hadir'] / $da['bil_ahli'] * 100), 2); ?> %
 	</h3>
 
-	<table align='center' width='100%'class="table" border='1' id='saiz' style="margin-top:10;">
+	<table align='center' width='100%' class="table bg-base-200 mb-20" border='1' id='saiz' style="margin-top:10;">
 		<tr>
 			<td colspan='3'>
 
 				<form action='kehadiran-laporan.php?id_aktiviti=<?= $id_aktiviti; ?>' method='POST' style="margin-bottom:20; padding:0; ">
 
-					<input type='text' name='nama' class="input input-bordered" placeholder='🔎 Carian Nama Ahli' style="margin-left:10;">
-					
-					<input type='submit' class="btn btn-sm size-20" style="margin-left:20;" value='Cari'>
+					<input type='text' name='nama' class="input bg-base-200 input-bordered" placeholder='🔎 Carian Nama Ahli' style="margin-left:10;">
+
+					<input type='submit' class="btn btn-sm bg-base-300" style="margin-left:10;" value='Cari'>
 				</form>
 
 			</td>
@@ -96,15 +101,15 @@ where id_aktiviti = '" . $ma['id_aktiviti'] . "' ) AS bil_hadir,
 
 	# arahan query untuk mencari senarai Aktiviti 
 	$arahan_papar = "
-SELECT *,  ahli.nokp
- FROM ahli
- LEFT JOIN kelas
- ON ahli.id_kelas = kelas.id_kelas
- LEFT JOIN kehadiran
- ON ahli.nokp = kehadiran.nokp 
- and id_aktiviti like '%$id_aktiviti%'
- $tambahan
- ORDER BY ahli.nama ";
+	SELECT *,  ahli.nokp
+	FROM ahli
+	LEFT JOIN kelas
+	ON ahli.id_kelas = kelas.id_kelas
+	LEFT JOIN kehadiran
+	ON ahli.nokp = kehadiran.nokp 
+	and id_aktiviti like '%$id_aktiviti%'
+	$tambahan
+	ORDER BY ahli.nama ";
 
 	# laksanakan arahan mencari data aktiviti 
 	$laksana = mysqli_query($condb, $arahan_papar);
@@ -133,5 +138,8 @@ SELECT *,  ahli.nokp
 	echo "</table>";
 }
 	?>
+</body>
+
+
 
 	<?php include('footer.php'); ?>
